@@ -312,8 +312,7 @@
       <p>10.00 Pagi hingga 5.00 Petang</p>
 
       <p><strong>Lokasi</strong></p>
-      <p>Dewan Sekolah Kebangsaan Kg Liang</p>
-      <p>Batu Pahat / Muar, Johor</p>
+      <p>Dewan Sekolah Kebangsaan Kg Liang, Batu Pahat/Muar, Johor</p>
     </div>
   </section>
 
@@ -379,7 +378,10 @@
       music.volume = 0.3; // Set volume to 30%
       const playPromise = music.play();
       if (playPromise !== undefined) {
-        playPromise.catch(error => {
+        playPromise.then(() => {
+          musicBtn.classList.add('playing');
+          musicIcon.textContent = '🎵';
+        }).catch(error => {
           // Auto-play was prevented, show pause icon
           musicBtn.classList.remove('playing');
           musicIcon.textContent = '🔇';
