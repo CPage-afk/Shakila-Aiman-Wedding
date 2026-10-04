@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jemputan Majlis Perkahwinan Shakila & Aiman</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f6efe5 0%, #e8dcc8 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .envelope-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+
+    .envelope {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+    }
+
+    .envelope.open {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-front {
+      padding: 60px 40px;
+      background: linear-gradient(135deg, #f6efe5 0%, #faf5f0 100%);
+      text-align: center;
+      border: 3px solid #7a1f1f;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .envelope-back {
+      padding: 60px 40px;
+      background: linear-gradient(135deg, #faf5f0 0%, #f6efe5 100%);
+      text-align: center;
+      border: 3px solid #7a1f1f;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .seal {
+      width: 120px;
+      height: 120px;
+      background: #7a1f1f;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 30px;
+      box-shadow: 0 5px 20px rgba(122, 31, 31, 0.3);
+      animation: sealPulse 2s infinite;
+    }
+
+    .seal-text {
+      color: white;
+      font-size: 50px;
+    }
+
+    @keyframes sealPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #7a1f1f;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+
+    .card-subtitle {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #7a1f1f;
+      margin-bottom: 20px;
+    }
+
+    .card-text {
+      color: #4e2323;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .date-text {
+      font-size: 0.95rem;
+      color: #7a1f1f;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    .open-button {
+      margin-top: 40px;
+      padding: 14px 40px;
+      background: #7a1f1f;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(122, 31, 31, 0.3);
+      letter-spacing: 1px;
+    }
+
+    .open-button:hover {
+      background: #5c1717;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(122, 31, 31, 0.4);
+    }
+
+    .open-button:active {
+      transform: translateY(0);
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #7a1f1f;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .back-button.show {
+      display: flex;
+    }
+
+    .back-button:hover {
+      background: #5c1717;
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .card-content.show {
+      display: block;
+    }
+
+    .card-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Decorative elements */
+    .decoration {
+      font-size: 2rem;
+      color: #7a1f1f;
+      opacity: 0.3;
+      margin: 10px 0;
+    }
+
+    .flower-top {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .flower-bottom {
+      font-size: 2.5rem;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .envelope-front,
+      .envelope-back {
+        padding: 40px 25px;
+        min-height: 350px;
+      }
+
+      .card-subtitle {
+        font-size: 1.8rem;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+
+      .seal {
+        width: 100px;
+        height: 100px;
+      }
+
+      .seal-text {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope-container">
+    <div class="envelope">
+      <!-- Front Cover -->
+      <div class="envelope-front">
+        <div class="decoration flower-top">✿</div>
+        <div class="seal">
+          <div class="seal-text">💌</div>
+        </div>
+        <h1 class="card-title">JEMPUTAN</h1>
+        <p class="card-text">Anda dijemput hadir dalam</p>
+        <h2 class="card-subtitle">Majlis Perkahwinan</h2>
+        <p class="card-text">Shakila & Aiman</p>
+        <p class="date-text">6 Disember 2026</p>
+        <div class="decoration flower-bottom">✿</div>
+        <button class="open-button" onclick="openCard()">BUKA JEMPUTAN</button>
+      </div>
+
+      <!-- Back (Wedding Card Content) -->
+      <div class="envelope-back">
+        <div class="card-wrapper">
+          <div class="card-content show" id="cardContent"></div>
+          <button class="back-button show" id="backButton" onclick="closeCard()">←</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openCard() {
+      const envelope = document.querySelector('.envelope');
+      const backButton = document.getElementById('backButton');
+      
+      envelope.classList.add('open');
+      backButton.classList.add('show');
+      
+      // Load the wedding card content
+      loadCardContent();
+    }
+
+    function closeCard() {
+      const envelope = document.querySelector('.envelope');
+      const backButton = document.getElementById('backButton');
+      
+      envelope.classList.remove('open');
+      backButton.classList.remove('show');
+    }
+
+    function loadCardContent() {
+      const cardContent = document.getElementById('cardContent');
+      
+      // Load the index.html content
+      fetch('index.html')
+        .then(response => response.text())
+        .then(html => {
+          // Extract body content
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const bodyContent = doc.body.innerHTML;
+          cardContent.innerHTML = bodyContent;
+          
+          // Re-run scripts from the loaded content
+          const scripts = doc.querySelectorAll('script');
+          scripts.forEach(script => {
+            const newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            cardContent.appendChild(newScript);
+          });
+        })
+        .catch(error => {
+          cardContent.innerHTML = '<p>Error loading card. Please try again.</p>';
+          console.error('Error loading card:', error);
+        });
+    }
+
+    // Prevent scrolling on body when envelope is open
+    function toggleBodyScroll(disable) {
+      if (disable) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    document.querySelector('.open-button').addEventListener('click', () => {
+      toggleBodyScroll(true);
+    });
+
+    document.getElementById('backButton').addEventListener('click', () => {
+      toggleBodyScroll(false);
+    });
+  </script>
+
+</body>
+</html>
