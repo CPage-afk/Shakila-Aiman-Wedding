@@ -27,13 +27,12 @@
       overflow-x: hidden;
     }
 
-    /* COVER PAGE */
     .cover-page {
       height: 100vh;
-      background: linear-gradient(rgba(80, 20, 20, 0.6), rgba(80, 20, 20, 0.6)),
-        url('Aiman/cover.jpg');
+      background-image: url('Aiman/images.jpg');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -55,53 +54,37 @@
     }
 
     .cover-content {
-      animation: fadeIn 2s;
-    }
-
-    .arabic {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .cover-page h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 5rem;
-      font-weight: normal;
-    }
-
-    .cover-page h2 {
-      font-size: 1.5rem;
-      letter-spacing: 3px;
-      margin: 10px 0;
-    }
-
-    .date {
-      margin-top: 20px;
-      font-size: 1.2rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding-bottom: 10vh;
+      animation: fadeIn 1.4s ease;
     }
 
     .open-btn {
       display: inline-block;
-      margin-top: 30px;
-      padding: 12px 30px;
-      background: #7a1f1f;
+      padding: 14px 38px;
+      background: rgba(122, 31, 31, 0.9);
       color: white;
       text-decoration: none;
-      border-radius: 30px;
-      transition: .3s;
-      border: none;
+      border-radius: 999px;
+      transition: .3s ease;
+      border: 2px solid rgba(255,255,255,0.7);
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
       font-size: 1rem;
+      font-weight: 600;
       letter-spacing: 1px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
     .open-btn:hover {
-      background: #5c1717;
-      transform: scale(1.05);
+      background: rgba(92, 23, 23, 0.98);
+      transform: translateY(-2px) scale(1.03);
     }
 
-    /* CARD CONTENT */
     .card-content {
       opacity: 0;
       transition: opacity 0.8s ease 0.3s;
@@ -115,8 +98,7 @@
 
     .hero {
       height: 100vh;
-      background: linear-gradient(rgba(80, 20, 20, 0.6), rgba(80, 20, 20, 0.6)),
-        url('Aiman/cover.jpg');
+      background: linear-gradient(rgba(80, 20, 20, 0.6), rgba(80, 20, 20, 0.6)), url('Aiman/cover.jpg');
       background-size: cover;
       background-position: center;
       display: flex;
@@ -141,6 +123,16 @@
       font-size: 1.5rem;
       letter-spacing: 3px;
       margin: 10px 0;
+    }
+
+    .arabic {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .date {
+      margin-top: 20px;
+      font-size: 1.2rem;
     }
 
     section {
@@ -314,25 +306,12 @@
 </head>
 <body>
 
-  <!-- COVER PAGE -->
   <div class="cover-page" id="coverPage">
     <div class="cover-content">
-      <div class="arabic">
-        بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-      </div>
-
-      <h1>Shakila & Aiman</h1>
-      <h2>MAJLIS PERKAHWINAN</h2>
-
-      <p class="date">
-        Ahad, 06 Disember 2026
-      </p>
-
       <button class="open-btn" onclick="openCard()">Buka Jemputan</button>
     </div>
   </div>
 
-  <!-- CARD CONTENT -->
   <div class="card-content" id="cardContent">
     <audio id="music" autoplay muted loop>
       <source src="Aiman/sampai-ke-hari-tua.mp3" type="audio/mpeg">
@@ -424,8 +403,7 @@
         </iframe>
       </div>
       <div style="text-align:center; margin-top:18px;">
-        <a class="map-button" href="https://www.google.com/maps/place/Sekolah+Kebangsaan+Liang+Batu/@2.2299759,102.7875292,17z/data=!3m1!4b1!4m6!3m5!1s0x31d1cd43f8c9afbd:0x7dbff4f14b859dbd!8m2!3d2.2299759!4d102.7875292!16s%2Fg%2F1hc8g2qhj?entry=ttu"
-          target="_blank">
+        <a class="map-button" href="https://www.google.com/maps/place/Sekolah+Kebangsaan+Liang+Batu/@2.2299759,102.7875292,17z/data=!3m1!4b1!4m6!3m5!1s0x31d1cd43f8c9afbd:0x7dbff4f14b859dbd!8m2!3d2.2299759!4d102.7875292!16s%2Fg%2F1hc8g2qhj?entry=ttu" target="_blank">
           Buka Lokasi Asal
         </a>
       </div>
@@ -480,11 +458,8 @@
     function openCard() {
       const coverPage = document.getElementById('coverPage');
       const cardContent = document.getElementById('cardContent');
-      
       coverPage.classList.add('hidden');
       cardContent.classList.add('show');
-      
-      // Play music
       playMusic();
     }
 
@@ -503,12 +478,6 @@
         musicIcon.textContent = '🔇';
       });
     }
-
-    document.addEventListener('click', function() {
-      if (music.paused && document.getElementById('cardContent').classList.contains('show')) {
-        playMusic();
-      }
-    }, { once: true });
 
     function toggleMusic() {
       if (music.paused) {
