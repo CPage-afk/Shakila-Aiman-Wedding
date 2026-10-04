@@ -167,33 +167,6 @@
       font-weight: bold;
     }
 
-    .rsvp {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 2px 20px rgba(0,0,0,.1);
-    }
-
-    .rsvp input,
-    .rsvp select,
-    .rsvp textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-    .rsvp button {
-      background: #7a1f1f;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
     footer {
       background: #7a1f1f;
       color: white;
@@ -205,15 +178,42 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 55px;
-      height: 55px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       border: none;
       background: #7a1f1f;
       color: white;
-      font-size: 20px;
+      font-size: 24px;
       cursor: pointer;
       z-index: 999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .music-btn:hover {
+      background: #5c1717;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .music-btn.playing {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(122, 31, 31, 0.5);
+      }
+      50% {
+        box-shadow: 0 4px 25px rgba(122, 31, 31, 0.8);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(122, 31, 31, 0.5);
+      }
     }
 
     @keyframes fadeIn {
@@ -231,10 +231,12 @@
 <body>
 
   <!-- MUSIC -->
-  <audio id="music" loop src="sampai-ke-hari-tua.mp3"></audio>
+  <audio id="music" loop>
+    <source src="sampai-ke-hari-tua.mp3" type="audio/mpeg">
+  </audio>
 
-  <button class="music-btn" onclick="toggleMusic()" aria-label="Toggle music">
-    🎵
+  <button class="music-btn playing" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">
+    <span id="musicIcon">🎵</span>
   </button>
 
   <!-- HERO -->
@@ -353,29 +355,6 @@
     </div>
   </section>
 
-  <!-- RSVP -->
-  <section>
-    <h2 class="title">RSVP Kehadiran</h2>
-
-    <div class="rsvp">
-      <form>
-        <input type="text" placeholder="Nama" required>
-
-        <select required>
-          <option value="">Pilih status</option>
-          <option>Hadir</option>
-          <option>Tidak Hadir</option>
-        </select>
-
-        <input type="number" placeholder="Bilangan Tetamu" min="1" required>
-
-        <textarea rows="5" placeholder="Ucapan"></textarea>
-
-        <button type="submit">Hantar RSVP</button>
-      </form>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <h3 style="font-family: 'Great Vibes', cursive; font-size: 42px;">
@@ -391,16 +370,47 @@
   </footer>
 
   <script>
-    function toggleMusic() {
-      const music = document.getElementById('music');
+    const music = document.getElementById('music');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicIcon = document.getElementById('musicIcon');
 
+    // Auto-play music on page load
+    window.addEventListener('load', function() {
+      music.volume = 0.3; // Set volume to 30%
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Auto-play was prevented, show pause icon
+          musicBtn.classList.remove('playing');
+          musicIcon.textContent = '🔇';
+        });
+      }
+    });
+
+    function toggleMusic() {
       if (music.paused) {
         music.play();
+        musicBtn.classList.add('playing');
+        musicIcon.textContent = '🎵';
       } else {
         music.pause();
+        musicBtn.classList.remove('playing');
+        musicIcon.textContent = '🔇';
       }
     }
 
+    // Update icon based on music state
+    music.addEventListener('play', function() {
+      musicBtn.classList.add('playing');
+      musicIcon.textContent = '🎵';
+    });
+
+    music.addEventListener('pause', function() {
+      musicBtn.classList.remove('playing');
+      musicIcon.textContent = '🔇';
+    });
+
+    // Countdown timer
     const weddingDate = new Date("Dec 6, 2026 10:00:00").getTime();
 
     setInterval(function () {
