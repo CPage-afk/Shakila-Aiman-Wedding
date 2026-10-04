@@ -92,10 +92,6 @@
       background-attachment: fixed;
     }
 
-    .hero {
-      background-attachment: scroll;
-    }
-
     .title {
       text-align: center;
       margin-bottom: 40px;
@@ -148,11 +144,29 @@
       margin: 12px 0;
     }
 
-    .location iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
+    .map-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 260px;
       border-radius: 20px;
+      background: linear-gradient(rgba(122, 31, 31, 0.8), rgba(122, 31, 31, 0.8)),
+        url('Aiman/cover.jpg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
+      padding: 20px;
+    }
+
+    .map-link {
+      display: inline-block;
+      background: #fff;
+      color: #7a1f1f;
+      text-decoration: none;
+      padding: 18px 30px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
     }
 
     .contacts {
@@ -247,7 +261,6 @@
     <span id="musicIcon">🎵</span>
   </button>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
       <div class="arabic">
@@ -265,7 +278,6 @@
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
   <section id="countdown">
     <h2 class="title">Detik Bahagia</h2>
 
@@ -292,7 +304,6 @@
     </div>
   </section>
 
-  <!-- COUPLE -->
   <section>
     <h2 class="title">Pasangan Pengantin</h2>
 
@@ -308,7 +319,6 @@
     </div>
   </section>
 
-  <!-- DETAILS -->
   <section>
     <h2 class="title">Aturcara Majlis</h2>
 
@@ -324,13 +334,15 @@
     </div>
   </section>
 
-  <!-- LOCATION -->
   <section class="location">
     <h2 class="title">Lokasi Majlis</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.8203899999998!2d102.09999999999999!3d1.7500000000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d19e5c8c8c8c8d%3A0x1a2b3c4d5e6f7g8h!2sSekolah%20Kebangsaan%20Kg%20Liang!5e0!3m2!1sen!2smy!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-panel">
+      <a class="map-link" href="https://share.google/D4F4QxgOkXeZ3CFS9" target="_blank" rel="noopener noreferrer">
+        Buka Lokasi di Google Maps
+      </a>
+    </div>
   </section>
 
-  <!-- CONTACT -->
   <section>
     <h2 class="title">Hubungi Kami</h2>
 
@@ -362,7 +374,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <h3 style="font-family: 'Great Vibes', cursive; font-size: 42px;">
       Shakila & Aiman
@@ -381,24 +392,22 @@
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = document.getElementById('musicIcon');
 
-    // Unmute and play music on page load or first user interaction
     function playMusic() {
       music.muted = false;
       music.volume = 0.3;
       music.play().then(() => {
         musicBtn.classList.add('playing');
         musicIcon.textContent = '🎵';
-      }).catch(error => {
-        console.log('Autoplay prevented:', error);
+      }).catch(() => {
+        musicBtn.classList.remove('playing');
+        musicIcon.textContent = '🔇';
       });
     }
 
-    // Try to play on load
     window.addEventListener('load', function() {
       playMusic();
     });
 
-    // If that fails, play on first user interaction
     document.addEventListener('click', function() {
       if (music.paused) {
         playMusic();
@@ -418,7 +427,6 @@
       }
     }
 
-    // Update icon based on music state
     music.addEventListener('play', function() {
       musicBtn.classList.add('playing');
       musicIcon.textContent = '🎵';
@@ -429,7 +437,6 @@
       musicIcon.textContent = '🔇';
     });
 
-    // Countdown timer
     const weddingDate = new Date("Dec 6, 2026 10:00:00").getTime();
 
     setInterval(function () {
