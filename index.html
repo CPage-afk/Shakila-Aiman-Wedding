@@ -30,9 +30,10 @@
     .cover-page {
       height: 100vh;
       background-image: url('Aiman/images.jpg');
-      background-size: cover;
+      background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
+      background-color: #f7efe7;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -403,7 +404,7 @@
         </iframe>
       </div>
       <div style="text-align:center; margin-top:18px;">
-        <a class="map-button" href="https://www.google.com/maps/place/Sekolah+Kebangsaan+Liang+Batu/@2.2299759,102.7875292,17z/data=!3m1!4b1!4m6!3m5!1s0x31d1cd43f8c9afbd:0x7dbff4f14b859dbd!8m2!3d2.2299759!4d102.7875292!16s%2Fg%2F1hc8g2qhj?entry=ttu" target="_blank">
+        <a class="map-button" href="https://www.google.com/maps/place/Sekolah+Kebangsaan+Liang+Batu/@2.2299759,102.7875292,17z/data=!3m1!4b1!4m6!3m5!1s0x31d1cd43f8c9afbd:0x7dbff4f14b859dbd!8m2!3d[...]
           Buka Lokasi Asal
         </a>
       </div>
@@ -491,6 +492,10 @@
         musicIcon.textContent = '🔇';
       }
     }
+
+    document.querySelector('.open-btn').addEventListener('click', () => {
+      document.body.style.overflow = 'auto';
+    });
 
     music.addEventListener('play', function() {
       musicBtn.classList.add('playing');
