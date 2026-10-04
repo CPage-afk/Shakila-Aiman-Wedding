@@ -144,29 +144,30 @@
       margin: 12px 0;
     }
 
-    .map-panel {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 260px;
+    .map-card {
+      background: white;
       border-radius: 20px;
-      background: linear-gradient(rgba(122, 31, 31, 0.8), rgba(122, 31, 31, 0.8)),
-        url('Aiman/cover.jpg');
-      background-size: cover;
-      background-position: center;
+      overflow: hidden;
       box-shadow: 0 2px 20px rgba(0,0,0,.08);
-      padding: 20px;
+      border: 1px solid rgba(122, 31, 31, 0.1);
     }
 
-    .map-link {
+    .map-card iframe {
+      width: 100%;
+      min-height: 420px;
+      border: 0;
+      display: block;
+    }
+
+    .map-button {
       display: inline-block;
-      background: #fff;
-      color: #7a1f1f;
+      margin-top: 18px;
+      padding: 12px 22px;
+      background: #7a1f1f;
+      color: white;
       text-decoration: none;
-      padding: 18px 30px;
       border-radius: 999px;
-      font-weight: 700;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+      font-weight: 600;
     }
 
     .contacts {
@@ -252,7 +253,6 @@
 </head>
 <body>
 
-  <!-- MUSIC -->
   <audio id="music" autoplay muted loop>
     <source src="Aiman/sampai-ke-hari-tua.mp3" type="audio/mpeg">
   </audio>
@@ -330,15 +330,23 @@
       <p>10.00 Pagi hingga 5.00 Petang</p>
 
       <p><strong>Lokasi</strong></p>
-      <p>Dewan Sekolah Kebangsaan Kg Liang, Batu Pahat/Muar, Johor</p>
+      <p>Dewan Sekolah Kebangsaan Kg Liang, Batu Pahat / Muar, Johor</p>
     </div>
   </section>
 
   <section class="location">
     <h2 class="title">Lokasi Majlis</h2>
-    <div class="map-panel">
-      <a class="map-link" href="https://share.google/D4F4QxgOkXeZ3CFS9" target="_blank" rel="noopener noreferrer">
-        Buka Lokasi di Google Maps
+    <div class="map-card">
+      <iframe
+        src="https://www.google.com/maps?q=Sekolah%20Kebangsaan%20Liang%20Batu%20Pahat%20Johor&z=16&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div style="text-align:center; margin-top:18px;">
+      <a class="map-button" href="https://www.google.com/maps/place/Sekolah+Kebangsaan+Liang+Batu/@2.2299759,102.7875292,17z/data=!3m1!4b1!4m6!3m5!1s0x31d1cd43f8c9afbd:0x7dbff4f14b859dbd!8m2!3d2.2299759!4d102.7875292!16s%2Fg%2F1pxxnx8hj?entry=ttu&g_ep=EgoyMDI2MDkzMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+        Buka Lokasi Asal
       </a>
     </div>
   </section>
