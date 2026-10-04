@@ -86,6 +86,14 @@
       padding: 80px 20px;
       max-width: 1100px;
       margin: auto;
+      background: linear-gradient(rgba(246, 239, 229, 0.95), rgba(246, 239, 229, 0.95)), url('Aiman/cover.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .hero {
+      background-attachment: scroll;
     }
 
     .title {
@@ -231,7 +239,7 @@
 <body>
 
   <!-- MUSIC -->
-  <audio id="music" loop>
+  <audio id="music" autoplay muted loop>
     <source src="Aiman/sampai-ke-hari-tua.mp3" type="audio/mpeg">
   </audio>
 
@@ -373,24 +381,33 @@
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = document.getElementById('musicIcon');
 
-    // Auto-play music on page load
+    // Unmute and play music on page load or first user interaction
+    function playMusic() {
+      music.muted = false;
+      music.volume = 0.3;
+      music.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicIcon.textContent = '🎵';
+      }).catch(error => {
+        console.log('Autoplay prevented:', error);
+      });
+    }
+
+    // Try to play on load
     window.addEventListener('load', function() {
-      music.volume = 0.3; // Set volume to 30%
-      const playPromise = music.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          musicBtn.classList.add('playing');
-          musicIcon.textContent = '🎵';
-        }).catch(error => {
-          // Auto-play was prevented, show pause icon
-          musicBtn.classList.remove('playing');
-          musicIcon.textContent = '🔇';
-        });
-      }
+      playMusic();
     });
+
+    // If that fails, play on first user interaction
+    document.addEventListener('click', function() {
+      if (music.paused) {
+        playMusic();
+      }
+    }, { once: true });
 
     function toggleMusic() {
       if (music.paused) {
+        music.muted = false;
         music.play();
         musicBtn.classList.add('playing');
         musicIcon.textContent = '🎵';
